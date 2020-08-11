@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
+@Table(name="Usuario")
 public class Usuario implements Serializable{
 
 	@Id
@@ -14,10 +15,7 @@ public class Usuario implements Serializable{
 	private Long id;
 	
 	@Column(nullable = false)
-	private String name;
-	
-	@Column(unique = true, nullable = false)
-	private String userName;
+	private String nombre;
 	
 	@Column(nullable = false)
 	private String password;
@@ -33,13 +31,15 @@ public class Usuario implements Serializable{
 	}
 
 
-	public Usuario(String name, String userName, String password, Integer dni, Boolean tipoUsuario) {
-		this.name = name;
-		this.userName = userName;
+	public Usuario(String nombre, String password, Integer dni, Boolean tipoUsuario) {
+		this.nombre = nombre;
 		this.password = password;
 		this.dni = dni;
 		this.tipoUsuario = tipoUsuario;
 	}
+
+
+	private static final long serialVersionUID = 1L;
 
 
 	public Long getId() {
@@ -52,23 +52,13 @@ public class Usuario implements Serializable{
 	}
 
 
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public String getUserName() {
-		return userName;
-	}
-
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 
@@ -100,7 +90,6 @@ public class Usuario implements Serializable{
 	public void setTipoUsuario(Boolean tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
-	private static final long serialVersionUID = 1L;
 
 
 	

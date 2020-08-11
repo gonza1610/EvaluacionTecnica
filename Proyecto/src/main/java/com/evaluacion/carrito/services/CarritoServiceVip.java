@@ -14,7 +14,7 @@ import com.evaluacion.carrito.repositories.CarritoRepository;
 import com.evaluacion.carrito.repositories.ProductoRepository;
 
 @Service
-public class CarritoServiceComun implements CarritoService{
+public class CarritoServiceVip implements CarritoService{
 
 	@Autowired
 	private CarritoRepository repository;
@@ -23,7 +23,7 @@ public class CarritoServiceComun implements CarritoService{
 	
 	@Transactional
 	public Carrito create(Carrito carrito) {
-		carrito.setTipo(Type.COMUN);
+		carrito.setTipo(Type.VIP);
 		return repository.save(carrito);
 	}
 	@Transactional(readOnly = true) 
@@ -38,11 +38,16 @@ public class CarritoServiceComun implements CarritoService{
 	@Override
 	public double calcularTotal(Carrito carrito) {
 		List<Producto>lista=carrito.getProductos();
-		double totals= 0;
-        totals= lista.stream().mapToDouble(p -> p.getPrecio()).sum();
-        if((lista.stream().count())==10) {
-        	double descuento=totals*0.10;
-        	return totals - descuento;
+        double totals= 0;
+        totals=lista.stream().mapToDouble(p -> p.getPrecio()).sum();
+        if((lista.stream().count())<=5 && totals>700) {
+        	double min=lista.stream().mapToDouble(i -> i.getPrecio()).min().getAsDouble();
+        	double descuento =min*0.10;
+        	double montoTotal=(totals - descuento)-700;
+        	if(montoTotal<0) {
+        		return 0;
+        	}
+        	return montoTotal ;
         }
 		return totals;
 	}
@@ -60,5 +65,4 @@ public class CarritoServiceComun implements CarritoService{
 		carrito.setProductos(lista);
 		return carrito;
 	}
-
 }

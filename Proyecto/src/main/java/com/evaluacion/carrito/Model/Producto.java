@@ -12,12 +12,11 @@ import javax.persistence.Id;
 public class Producto implements Serializable{
 
 	@Id
-	@Column(name="Id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@Column(name="nombre",nullable=false)
+	@Column(nullable=false)
 	private String nombre;
-	@Column(name="precio",nullable=false)
+	@Column(nullable=false)
 	private Integer precio;
 	
 	public Producto(String nombre, Integer precio) {
