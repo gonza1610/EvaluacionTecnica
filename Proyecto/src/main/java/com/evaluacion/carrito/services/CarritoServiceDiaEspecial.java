@@ -2,6 +2,7 @@ package com.evaluacion.carrito.services;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,14 @@ public class CarritoServiceDiaEspecial implements CarritoService{
 	@Autowired
 	private ProductoRepository Prodrepository;
 	
+	@Transactional(readOnly = true) 
+	public List<Producto> findProductos(int dni){
+		 List<Producto> list=repository.findProductos(dni);
+		 list = list.stream().distinct().sorted((x,y) -> y.getPrecio().compareTo(x.getPrecio()))
+				 .limit(4)
+				 .collect(Collectors.toList());
+		 return list;	 
+	}
 	@Transactional
 	public Carrito create(Carrito carrito) {
 		carrito.setTipo(Type.ESPECIAL);
@@ -40,7 +49,7 @@ public class CarritoServiceDiaEspecial implements CarritoService{
 		List<Producto>lista=carrito.getProductos();
         double totals= 0;
         totals=lista.stream().mapToDouble(p -> p.getPrecio()).sum();
-        if((lista.stream().count())<=5 && totals>500) {
+        if((lista.stream().count())>=5 && totals>500) {
         	return (totals -500);
         }
 		return totals;

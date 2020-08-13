@@ -7,14 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Producto")
 public class Producto implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	private String nombre;
 	@Column(nullable=false)
 	private Integer precio;

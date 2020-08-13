@@ -10,8 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 
 
@@ -27,7 +25,7 @@ public class Carrito implements Serializable{
 	@ManyToMany( targetEntity=Producto.class )
 	private List<Producto> productos;
 	
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "ENUM('COMUN', 'VIP', 'ESPECIAL')")
     @Enumerated(EnumType.STRING)
     private Type tipo;
 

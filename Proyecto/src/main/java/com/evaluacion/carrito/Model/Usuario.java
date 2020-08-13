@@ -20,7 +20,7 @@ public class Usuario implements Serializable{
 	@Column(nullable = false)
 	private String password;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique=true)
 	private Integer dni;
 	
     @Column(nullable = false)

@@ -2,6 +2,7 @@ package com.evaluacion.carrito.services;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,15 @@ public class CarritoServiceComun implements CarritoService{
 	private CarritoRepository repository;
 	@Autowired
 	private ProductoRepository Prodrepository;
+	
+	@Transactional(readOnly = true) 
+	public List<Producto> findProductos(int dni){
+		 List<Producto> list=repository.findProductos(dni);
+		 list = list.stream().distinct().sorted((x,y) -> y.getPrecio().compareTo(x.getPrecio()))
+				 .limit(4)
+				 .collect(Collectors.toList());
+		 return list;	 
+	}
 	
 	@Transactional
 	public Carrito create(Carrito carrito) {
