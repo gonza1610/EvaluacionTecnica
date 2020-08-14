@@ -67,10 +67,10 @@ public class CarritoServiceVip implements CarritoService{
 		return carrito;
 	}
 	@Override
-	public Carrito eliminarProducto(Producto producto, Carrito carrito) {
+	public Carrito eliminarProducto(Long id, Carrito carrito) {
 		List<Producto> lista=carrito.getProductos();
-		Producto product= Prodrepository.findById(producto.getId()).orElse(null);
-		lista.removeIf(l->l.getNombre().equals(product.getNombre()));
+		Producto product= Prodrepository.findById(id).orElse(null);
+		lista.remove(product);
 		carrito.setProductos(lista);
 		return carrito;
 	}

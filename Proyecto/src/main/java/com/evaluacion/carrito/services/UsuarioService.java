@@ -20,4 +20,8 @@ public class UsuarioService {
 	public List<Usuario> findAll(){
 		return repository.findAll();
 	}
+
+	public Usuario findByDni(Integer dni) {
+		return repository.findByDni(dni);
+	}
 }

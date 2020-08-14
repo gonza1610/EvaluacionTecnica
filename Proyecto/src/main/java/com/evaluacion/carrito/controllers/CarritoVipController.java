@@ -69,7 +69,7 @@ public class CarritoVipController {
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		response.put("Carrito id", newCarrito.getId());
+		response.put("id", newCarrito.getId());
 		response.put("mensaje", "Se creo un nuevo carrito Vip");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
@@ -114,16 +114,16 @@ public class CarritoVipController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 	}
 	//Eliminar un producto por body
-	@DeleteMapping("/producto/{id}")
-	public ResponseEntity<?> removeProducto(@RequestBody Producto producto, @PathVariable("id") Long id){
-		Carrito carrito= service.findById(id);	    
+	@DeleteMapping("/producto/{id}/{idCarrito}")
+	public ResponseEntity<?> removeProducto(@PathVariable Long id, @PathVariable("idCarrito") Long idCarrito){
+		Carrito carrito= service.findById(idCarrito);	    
 		Map<String, Object> response= new HashMap<>();
 		if(carrito==null) {
 			response.put("mensaje", "El carrito ingresado ".concat(id.toString().concat(" no existe en la BD")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		try {
-			carrito=service.eliminarProducto(producto, carrito);
+			carrito=service.eliminarProducto(id, carrito);
 			service.create(carrito); 			    
 		}
 		catch(DataAccessException e) {
