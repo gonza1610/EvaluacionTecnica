@@ -22,7 +22,7 @@ public class ProductoController {
 	
 	//Retorna la lista de usuarios
 	@GetMapping("/producto")
-	public ResponseEntity<List<Producto>> getClientes(){
+	public ResponseEntity<List<Producto>> getProductos(){
 		List<Producto> list=service.findAll();
 		return ResponseEntity.ok(list);
 	}

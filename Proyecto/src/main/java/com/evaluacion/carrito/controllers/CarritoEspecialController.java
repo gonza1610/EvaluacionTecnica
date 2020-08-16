@@ -138,7 +138,7 @@ public class CarritoEspecialController {
 	}
 	//Producto mas caros
 	@GetMapping("/max/{dni}")
-	public  ResponseEntity<?> calcular( @PathVariable("dni") int dni ){
+	public  ResponseEntity<?> maxProductos( @PathVariable("dni") int dni ){
 		List<Producto> list=null;
 		Map<String, Object> response= new HashMap<>();
 		try {

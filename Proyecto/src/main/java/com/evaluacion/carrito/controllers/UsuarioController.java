@@ -27,12 +27,12 @@ public class UsuarioController {
 	
 	//Retorna la lista de usuarios
 	@GetMapping
-	public ResponseEntity<List<Usuario>> getClientes(){
+	public ResponseEntity<List<Usuario>> getUsuarios(){
 		List<Usuario> list=service.findAll();
 		return ResponseEntity.ok(list);
 	}
 	@GetMapping("/{dni}")
-	public ResponseEntity<?> show(@PathVariable("dni") Integer  dni){
+	public ResponseEntity<?> getUsuario(@PathVariable("dni") Integer  dni){
 		Usuario usuario= null;
 		Map<String, Object> response= new HashMap<>();
 		try {
